@@ -1,73 +1,18 @@
-# React + TypeScript + Vite
+# Miami Marlins Interview Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Image
 
-Currently, two official plugins are available:
+![Project Image alt text](public/PATH.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Project Description
 
-## React Compiler
+The goal of this project is to simulate a task you'd be asked to complete if you were hired for the Senior Front-End Software Engineer role. The project should not to be exhaustive, but to demonstrate how you approach a problem, specifically answer a high-level technical question, and how you go about formulating a response that you'd be able to review with the development team such that they can execute on it. You are welcome to make any assumptions you feel are necessary, as long as you are willing to explain them as part of the interview.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Task
 
-## Expanding the ESLint configuration
+The Miami Marlins Baseball Applications team has been tasked with building an application where any member of the organization can get a quick glance of the schedule or results for all of the team’s affiliates for a given date on the calendar. To support this functionality, the team has determined it needs to build a web application that displays summaries of each of the affiliates games for a given day in the 2025 season.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## How to run
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1. npm install
+2. npm run dev
