@@ -1,7 +1,26 @@
 @import "tailwindcss";
 
+:root {
+  /* 1 rem = to 16px; */
+  /* --font-size-base: 16px; */
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
+  font-size: .8rem;
+}
+.App {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+.game-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px;
+}
+.game-time {
+  /* font-size: .5rem; */
 }
