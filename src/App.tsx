@@ -1,27 +1,26 @@
 import { useState, useEffect } from "react";
-import CompletedStatus from "./components/CompletedStatus";
 import "./App.css";
 
 function GetRequestCalls() {
-  const [games, setGames] = useState<any[]>([]); // store all games
+  // const [games, setGames] = useState<any[]>([]); // store all games
 
   const url =
     // "https://statsapi.mlb.com/api/v1/schedule?teamId=146&sportId=1&date=2025-03-23";
     // "https://statsapi.mlb.com/api/v1/schedule?teamId=136&sportId=1&date=2025-10-19";
     // "https://statsapi.mlb.com/api/v1/teams/3276";
     // "https://statsapi.mlb.com/api/v1/schedule?teamId=146&teamId=385&teamId=467&teamId=564&teamId=554&teamId=619&teamId=3276&teamId=4124&teamId=3277&teamId=479&teamId=2127&sportId=1&sportId=21&sportId=16&sportId=11&sportId=13&sportId=16&sportId=21&sportId=12&sportId=21&sportId=14&sportId=16&date=2025-03-03";
-    // "https://statsapi.mlb.com/api/v1.1/game/779076/feed/live";
-    // "https://statsapi.mlb.com/api/v1.1/game/813038/feed/live";
+    "https://statsapi.mlb.com/api/v1.1/game/779076/feed/live";
+  // "https://statsapi.mlb.com/api/v1.1/game/813038/feed/live";
 
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        // const allGames = data.dates[0]?.games || [];
-        // setGames(allGames);
-        // games?.map((gamePk: number) => gamePk);
-        console.log(data.gameData);
-      })
-      .catch((err) => console.error(err));
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      // const allGames = data.dates[0]?.games || [];
+      // setGames(allGames);
+      // games?.map((gamePk: number) => gamePk);
+      console.log(data.gameData);
+    })
+    .catch((err) => console.error(err));
 
   return <></>;
 }
@@ -75,6 +74,66 @@ function App() {
 
         return (
           <div key={gameData.game.pk} className="game-card">
+            {gameData.status.abstractGameState === "Preview" && (
+              <>
+                <b>
+                  Game Status:{" "}
+                  {gameData.status.abstractGameState === "Preview"
+                    ? "Not Started"
+                    : gameData.status.abstractGameState}
+                </b>
+                <div className="notstarted-game">
+                  <div>
+                    <h2>{gameData.teams.home.name}</h2>
+                    {gameData.probablePitchers ? (
+                      <p>
+                        <span className="uppercase">pp: </span>
+                        {gameData.probablePitchers.home.fullName}
+                      </p>
+                    ) : (
+                      <p>n/a</p>
+                    )}
+                  </div>
+                  <div>
+                    <h2>vs {gameData.teams.away.name}</h2>
+                    {gameData.probablePitchers ? (
+                      <div className="probable-pitchers">
+                        <p>
+                          <span className="uppercase">pp: </span>
+                          {gameData.probablePitchers.away.fullName}
+                        </p>
+                      </div>
+                    ) : (
+                      <p>n/a</p>
+                    )}
+                  </div>
+                  <div className="game-info">
+                    <p>
+                      {new Date(gameData.datetime.dateTime).toLocaleString(
+                        "en-US",
+                        {
+                          hour: "numeric",
+                          minute: "numeric",
+                          hour12: true,
+                        }
+                      )}
+                    </p>
+                    {gameData.venue.location.country == "USA" ? (
+                      <p>
+                        {gameData.venue.name}, {gameData.venue.location.city},{" "}
+                        {gameData.venue.location.stateAbbrev}
+                      </p>
+                    ) : (
+                      <p>
+                        {gameData.venue.name},{" "}
+                        {gameData.venue.location.stateAbbrev}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <hr />
+              </>
+            )}
             <b>
               Game Status:{" "}
               {gameData.status.abstractGameState === "Preview"
@@ -84,7 +143,7 @@ function App() {
             <ul>
               {" "}
               {/* Not Started */}
-              <li className="game-time">
+              <li>
                 Game time:{" "}
                 {new Date(gameData.datetime.dateTime).toLocaleString("en-US", {
                   hour: "numeric",
