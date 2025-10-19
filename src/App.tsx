@@ -8,6 +8,7 @@ function GetRequestCalls() {
     // "https://statsapi.mlb.com/api/v1/schedule?teamId=146&sportId=1&date=2025-03-23";
     // "https://statsapi.mlb.com/api/v1/schedule?teamId=136&sportId=1&date=2025-10-19";
     // "https://statsapi.mlb.com/api/v1/teams/3276";
+    // "https://statsapi.mlb.com/api/v1/teams/138";
     // "https://statsapi.mlb.com/api/v1/schedule?teamId=146&teamId=385&teamId=467&teamId=564&teamId=554&teamId=619&teamId=3276&teamId=4124&teamId=3277&teamId=479&teamId=2127&sportId=1&sportId=21&sportId=16&sportId=11&sportId=13&sportId=16&sportId=21&sportId=12&sportId=21&sportId=14&sportId=16&date=2025-03-03";
     "https://statsapi.mlb.com/api/v1.1/game/779076/feed/live";
   // "https://statsapi.mlb.com/api/v1.1/game/813038/feed/live";
@@ -84,7 +85,9 @@ function App() {
                         {gameData.probablePitchers.home.fullName}
                       </p>
                     ) : (
-                      <p>n/a</p>
+                      <p>
+                        <span className="uppercase">pp: </span>n/a
+                      </p>
                     )}
                   </div>
                   <div>
@@ -111,17 +114,13 @@ function App() {
                         }
                       )}
                     </p>
-                    {gameData.venue.location.country == "USA" ? (
-                      <p>
-                        {gameData.venue.name}, {gameData.venue.location.city},{" "}
-                        {gameData.venue.location.stateAbbrev}
-                      </p>
-                    ) : (
-                      <p>
-                        {gameData.venue.name},{" "}
-                        {gameData.venue.location.stateAbbrev}
-                      </p>
-                    )}
+                    <p>
+                      {gameData.venue.name},{" "}
+                      {gameData.venue.location.country === "USA"
+                        ? `${gameData.venue.location.city}, `
+                        : null}
+                      {gameData.venue.location.stateAbbrev}
+                    </p>
                   </div>
                 </div>
                 <hr />
@@ -129,7 +128,6 @@ function App() {
             )}
             {gameData.status.abstractGameState === "Final" && (
               <>
-                <b>Game Status: Completed</b>
                 <div className="notstarted-game">
                   <div>
                     <h2>
@@ -142,22 +140,22 @@ function App() {
                       <div>
                         {liveData.linescore.teams.home.runs >
                         liveData.linescore.teams.away.runs ? (
-                          <>
-                          <p>
-                            <span className="uppercase">wp:</span>
-                            {liveData.decisions?.winner?.fullName}
-                          </p>
-                          {liveData.decisions.save?.fullName ? (
+                          <div className="decisions-pitchers">
                             <p>
-                              <span className="uppercase">sp: </span>
-                              {liveData.decisions?.save?.fullName}
+                              <span className="uppercase">wp: </span>
+                              {liveData.decisions.winner?.fullName}
                             </p>
-                          )}
-                          </>
+                            {liveData.decisions.save?.fullName && (
+                              <p>
+                                <span className="uppercase">sp: </span>
+                                {liveData.decisions.save?.fullName}
+                              </p>
+                            )}
+                          </div>
                         ) : (
                           <p>
-                            <span className="uppercase">lp:</span>
-                            {liveData.decisions?.loser?.fullName}
+                            <span className="uppercase">lp: </span>
+                            {liveData.decisions.loser?.fullName}
                           </p>
                         )}
                       </div>
@@ -166,45 +164,50 @@ function App() {
                   <div>
                     <h2>
                       vs {gameData.teams.away.name}{" "}
+                      {/* If the teamID is not a Marlins or an afiliate team, and the team name does not include a city name, then display the span.
+                      <span className="uppercase">
+                        {`(${gameData.teams.away.teamCode})`}{" "}
+                      </span>
+                      */}
                       <span className="bold">
                         {liveData.linescore.teams.away.runs}
                       </span>
                     </h2>
+                    {liveData.decisions ? (
+                      <div>
+                        {liveData.linescore.teams.home.runs <
+                        liveData.linescore.teams.away.runs ? (
+                          <div className="decisions-pitchers">
+                            <p>
+                              <span className="uppercase">wp: </span>
+                              {liveData.decisions.winner?.fullName}
+                            </p>
+                            {liveData.decisions.save?.fullName && (
+                              <p>
+                                <span className="uppercase">sp: </span>
+                                {liveData.decisions.save?.fullName}
+                              </p>
+                            )}
+                          </div>
+                        ) : (
+                          <p>
+                            <span className="uppercase">lp: </span>
+                            {liveData.decisions.loser?.fullName}
+                          </p>
+                        )}
+                      </div>
+                    ) : null}
                   </div>
                   <div className="game-info">
                     {gameData.status.abstractGameState}
-                    {gameData.venue.location.country == "USA" ? (
-                      <p>
-                        {gameData.venue.name}, {gameData.venue.location.city},{" "}
-                        {gameData.venue.location.stateAbbrev}
-                      </p>
-                    ) : (
-                      <p>
-                        {gameData.venue.name},{" "}
-                        {gameData.venue.location.stateAbbrev}
-                      </p>
-                    )}
+                    <p>
+                      {gameData.venue.name},{" "}
+                      {gameData.venue.location.country === "USA"
+                        ? `${gameData.venue.location.city}, `
+                        : null}
+                      {gameData.venue.location.stateAbbrev}
+                    </p>
                   </div>
-                  {/* if losing team then show loser pitcher. 
-                   if winning team then show win/save pitcher(s). */}
-                  {liveData.decisions ? (
-                    <div>
-                      <p>
-                        <span className="uppercase">wp:</span>
-                        {liveData.decisions?.winner?.fullName}
-                      </p>
-                      <p>
-                        <span className="uppercase">lp:</span>
-                        {liveData.decisions?.loser?.fullName}
-                      </p>
-                      {liveData.decisions.save?.fullName ? (
-                        <p>
-                          <span className="uppercase">sp: </span>
-                          {liveData.decisions?.save?.fullName}
-                        </p>
-                      ) : null}
-                    </div>
-                  ) : null}
                 </div>
                 <hr />
               </>
