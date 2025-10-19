@@ -34,10 +34,16 @@ h2 {
 }
 .notstarted-game {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1.5fr 1.5fr 1fr;
   column-gap: 2rem;
 }
 .game-info {
   text-align: right;
   padding-top: .3rem;
+  align-self: end;
+}
+.decisions-pitchers {
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
 }
