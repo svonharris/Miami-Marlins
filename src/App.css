@@ -19,6 +19,10 @@ h2 {
 .uppercase {
   text-transform: uppercase;
 }
+.bold {
+  font-weight: 700;
+  font-size: 1.3rem;
+}
 .App {
   display: flex;
   flex-direction: column;
