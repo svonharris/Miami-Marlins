@@ -18,7 +18,7 @@ function GetRequestCalls() {
       // const allGames = data.dates[0]?.games || [];
       // setGames(allGames);
       // games?.map((gamePk: number) => gamePk);
-      console.log(data.gameData);
+      console.log(data);
     })
     .catch((err) => console.error(err));
 
@@ -26,34 +26,32 @@ function GetRequestCalls() {
 }
 
 function App() {
-  // const [games, setGames] = useState<any[]>([]);
-  const [details, setDetails] = useState<any[]>([]);
+  const [gameDetails, setGameDetails] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   const scheduleUrl =
-    // "https://statsapi.mlb.com/api/v1/schedule?teamId=146&teamId=385&teamId=467&teamId=564&teamId=554&teamId=619&teamId=3276&teamId=4124&teamId=3277&teamId=479&teamId=2127&sportId=1&sportId=21&sportId=16&sportId=11&sportId=13&sportId=12&sportId=14&date=2025-03-03";
-    "https://statsapi.mlb.com/api/v1/schedule?teamId=136&sportId=1&date=2025-10-19";
+    "https://statsapi.mlb.com/api/v1/schedule?teamId=146&teamId=385&teamId=467&teamId=564&teamId=554&teamId=619&teamId=3276&teamId=4124&teamId=3277&teamId=479&teamId=2127&sportId=1&sportId=21&sportId=16&sportId=11&sportId=13&sportId=12&sportId=14&date=2025-03-03";
+  // "https://statsapi.mlb.com/api/v1/schedule?teamId=136&sportId=1&date=2025-10-19";
 
   useEffect(() => {
     async function fetchGames() {
       try {
-        // 1️⃣ First call: Get schedule data
+        // First call: Get schedule data
         const res = await fetch(scheduleUrl);
         const data = await res.json();
         const allGames = data.dates[0]?.games || [];
-        // setGames(allGames);
 
-        // 2️⃣ Second call(s): Fetch each game’s live data
-        const detailPromises = allGames.map((game: any) =>
+        // Second call(s): Fetch each game’s data
+        const gameDetailPromises = allGames.map((game: any) =>
           fetch(
             `https://statsapi.mlb.com/api/v1.1/game/${game.gamePk}/feed/live`
           ).then((res) => res.json())
         );
 
         // Wait for all requests to finish
-        const allDetails = await Promise.all(detailPromises);
+        const allGameDetails = await Promise.all(gameDetailPromises);
 
-        setDetails(allDetails);
+        setGameDetails(allGameDetails);
       } catch (err) {
         console.error("Error fetching data:", err);
       } finally {
@@ -68,7 +66,7 @@ function App() {
 
   return (
     <div className="App">
-      {details.map((d) => {
+      {gameDetails.map((d) => {
         const gameData = d.gameData;
         const liveData = d.liveData;
 
