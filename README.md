@@ -42,6 +42,6 @@ The deliverable should be a runnable web app that can provide a single page that
    - Scheduled / final games with results
    - "No Game" cards for teams not playing
 
-### Project Image
+## Project Image
 
 ![Project Image alt text](public/FrontEndEngineerTakeHomeWireframe.png)
