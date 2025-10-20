@@ -31,8 +31,8 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   const scheduleUrl =
-    "https://statsapi.mlb.com/api/v1/schedule?teamId=146&teamId=385&teamId=467&teamId=564&teamId=554&teamId=619&teamId=3276&teamId=4124&teamId=3277&teamId=479&teamId=2127&sportId=1&sportId=21&sportId=16&sportId=11&sportId=13&sportId=12&sportId=14&date=2025-03-03";
-  // "https://statsapi.mlb.com/api/v1/schedule?teamId=136&sportId=1&date=2025-10-19";
+    "https://statsapi.mlb.com/api/v1/schedule?teamId=146&teamId=385&teamId=467&teamId=564&teamId=554&teamId=619&teamId=3276&teamId=4124&teamId=3277&teamId=479&teamId=2127&sportId=1&sportId=21&sportId=16&sportId=11&sportId=13&sportId=12&sportId=14&date=2025-04-12";
+  // "https://statsapi.mlb.com/api/v1/schedule?teamId=136&sportId=1&date=2025-10-20";
 
   useEffect(() => {
     async function fetchGames() {
@@ -75,7 +75,6 @@ function App() {
           <div key={gameData.game.pk} className="game-card">
             {gameData.status.abstractGameState === "Preview" && (
               <>
-                <b>Game Status: Not Started</b>
                 <div className="notstarted-game">
                   <div>
                     <h2>{gameData.teams.home.name}</h2>
@@ -123,80 +122,80 @@ function App() {
                     </p>
                   </div>
                 </div>
-                <hr />
               </>
             )}
             {gameData.status.abstractGameState === "Final" && (
               <>
-                <div className="notstarted-game">
-                  <div>
-                    <h2>
-                      {gameData.teams.home.name}{" "}
-                      <span className="bold">
-                        {liveData.linescore.teams.home.runs}
-                      </span>
-                    </h2>
-                    {liveData.decisions ? (
-                      <div>
-                        {liveData.linescore.teams.home.runs >
-                        liveData.linescore.teams.away.runs ? (
-                          <div className="decisions-pitchers">
-                            <p>
-                              <span className="uppercase">wp: </span>
-                              {liveData.decisions.winner?.fullName}
-                            </p>
-                            {liveData.decisions.save?.fullName && (
+                <div className="final-game">
+                  <div className="teams-playing">
+                    <div>
+                      <h2>
+                        {gameData.teams.home.name}{" "}
+                        <span className="bold">
+                          {liveData.linescore.teams.home.runs}
+                        </span>
+                      </h2>
+                      {liveData.decisions ? (
+                        <div>
+                          {liveData.linescore.teams.home.runs >
+                          liveData.linescore.teams.away.runs ? (
+                            <div className="decisions-pitchers">
                               <p>
-                                <span className="uppercase">sp: </span>
-                                {liveData.decisions.save?.fullName}
+                                <span className="uppercase">wp: </span>
+                                {liveData.decisions.winner?.fullName}
                               </p>
-                            )}
-                          </div>
-                        ) : (
-                          <p>
-                            <span className="uppercase">lp: </span>
-                            {liveData.decisions.loser?.fullName}
-                          </p>
-                        )}
-                      </div>
-                    ) : null}
-                  </div>
-                  <div>
-                    <h2>
-                      vs {gameData.teams.away.name}{" "}
-                      {/* If the teamID is not a Marlins or an afiliate team, and the team name does not include a city name, then display the span.
-                      <span className="uppercase">
-                        {`(${gameData.teams.away.teamCode})`}{" "}
-                      </span>
-                      */}
-                      <span className="bold">
-                        {liveData.linescore.teams.away.runs}
-                      </span>
-                    </h2>
-                    {liveData.decisions ? (
-                      <div>
-                        {liveData.linescore.teams.home.runs <
-                        liveData.linescore.teams.away.runs ? (
-                          <div className="decisions-pitchers">
-                            <p>
-                              <span className="uppercase">wp: </span>
-                              {liveData.decisions.winner?.fullName}
-                            </p>
-                            {liveData.decisions.save?.fullName && (
+                              {liveData.decisions.save?.fullName && (
+                                <p>
+                                  <span className="uppercase">sp: </span>
+                                  {liveData.decisions.save?.fullName}
+                                </p>
+                              )}
+                            </div>
+                          ) : (
+                            liveData.decisions.loser?.fullName && (
                               <p>
-                                <span className="uppercase">sp: </span>
-                                {liveData.decisions.save?.fullName}
+                                <span className="uppercase">lp: </span>
+                                {liveData.decisions.loser.fullName}
                               </p>
-                            )}
-                          </div>
-                        ) : (
-                          <p>
-                            <span className="uppercase">lp: </span>
-                            {liveData.decisions.loser?.fullName}
-                          </p>
-                        )}
-                      </div>
-                    ) : null}
+                            )
+                          )}
+                        </div>
+                      ) : null}
+                    </div>
+                    <div className="text-right">
+                      <h2>
+                        vs {gameData.teams.away.name}{" "}
+                        <span className="bold">
+                          {liveData.linescore.teams.away.runs}
+                        </span>
+                      </h2>
+                      {liveData.decisions ? (
+                        <div>
+                          {liveData.linescore.teams.home.runs <
+                          liveData.linescore.teams.away.runs ? (
+                            <div className="decisions-pitchers">
+                              <p>
+                                <span className="uppercase">wp: </span>
+                                {liveData.decisions.winner?.fullName}
+                              </p>
+                              {liveData.decisions.save?.fullName && (
+                                <p>
+                                  <span className="uppercase">sp: </span>
+                                  {liveData.decisions.save?.fullName}
+                                </p>
+                              )}
+                            </div>
+                          ) : (
+                            liveData.decisions.loser?.fullName && (
+                              <p>
+                                <span className="uppercase">lp: </span>
+                                {liveData.decisions.loser.fullName}
+                              </p>
+                            )
+                          )}
+                        </div>
+                      ) : null}
+                    </div>
                   </div>
                   <div className="game-info">
                     {gameData.status.abstractGameState}
@@ -209,55 +208,56 @@ function App() {
                     </p>
                   </div>
                 </div>
-                <hr />
               </>
             )}
-            {/* {gameData.status.abstractGameState === "In Progress" && (
+            {gameData.status.abstractGameState === "In Progress" && (
               <>
-                <hr />
+                <div className="inprogress-game">
+                  <div className="teams-playing">
+                    <h2>
+                      {gameData.teams.home.name}{" "}
+                      <span className="bold">
+                        {liveData.linescore.teams.home.runs}
+                      </span>
+                    </h2>
+                    <h2>
+                      vs {gameData.teams.away.name}{" "}
+                      <span className="bold">
+                        {liveData.linescore.teams.away.runs}
+                      </span>
+                    </h2>
+                  </div>
+                  <div className="game-info inprogress">
+                    <ul className="game-stats">
+                      <li>
+                        {liveData.linescore.inningState}{" "}
+                        {liveData.linescore.currentInning}
+                      </li>
+                      <li>{liveData.linescore.outs} outs</li>
+                    </ul>
+                    <p>
+                      {gameData.venue.name},{" "}
+                      {gameData.venue.location.country === "USA"
+                        ? `${gameData.venue.location.city}, `
+                        : null}
+                      {gameData.venue.location.stateAbbrev}
+                    </p>
+                  </div>
+                  <ul className="player-stats">
+                    {liveData.plays.currentPlay?.matchup.batter.fullName && (
+                      <li>
+                        At Bat:{" "}
+                        {liveData.plays.currentPlay?.matchup.batter.fullName}
+                      </li>
+                    )}
+                    {liveData.boxscore.pitchers && (
+                      <li>Pitching: {liveData.boxscore.pitchers}</li>
+                    )}
+                    {liveData.linescore.offense && <li>Runners: [array]</li>}
+                  </ul>
+                </div>
               </>
-            )} */}
-            <ul>
-              {/* <li>
-                Game time:{" "}
-                {new Date(gameData.datetime.dateTime).toLocaleString("en-US", {
-                  hour: "numeric",
-                  minute: "numeric",
-                  hour12: true,
-                })}
-              </li> */}
-              <li>opponent: </li>
-              {/* <li>venue: {gameData.venue.name}</li> */}
-              {/* <li>
-                probable pitchers (if available): Home team:{" "}
-                {gameData.probablePitchers.home.fullName}, Away team:{" "}
-                {gameData.probablePitchers.away.fullName}
-              </li> */}
-              {/* <li>
-                current score: {gameData.teams.home.name}{" "}
-                {liveData.linescore.teams.home.runs} vs{" "}
-                {gameData.teams.away.name} {liveData.linescore.teams.away.runs}
-              </li> */}
-              <li>inning: {liveData.linescore.currentInning}</li>
-              <li>outs: {liveData.linescore.outs}</li>
-              <li>runners on base: </li>
-              <li>current pitcher: </li>
-              <li>
-                batter up-to-bat:{" "}
-                {liveData.plays.currentPlay?.matchup.batter.fullName}
-              </li>
-              {/* <li>
-                Final score: {gameData.teams.home.name}{" "}
-                {liveData.linescore.teams.home.runs} vs{" "}
-                {gameData.teams.away.name} {liveData.linescore.teams.away.runs}
-              </li>
-              <li>winning pitcher: {liveData.decisions?.winner?.fullName}</li>
-              <li>losing pitcher: {liveData.decisions?.loser?.fullName}</li>
-              <li>
-                save pitcher (if applicable):{" "}
-                {liveData.decisions?.save?.fullName}
-              </li> */}
-            </ul>
+            )}
           </div>
         );
       })}
