@@ -24,7 +24,25 @@ The app should load from a specific URL in the browser. By default, the page sho
 
 The submission should include instructions on how to run the project locally on a development machine, including any prerequisites and dependencies that are necessary.
 
+## Tools used:
+
+- Vite, React, and TypeScript.
+
 ## How to run
 
-1. npm install
-2. npm run dev
+1. git clone <repo>
+2. cd Miami-Marlins
+3. npm install
+4. npm run dev
+
+## How It Works
+
+1. User selects a date on the calendar.
+2. The app calls the MLB Stats API.
+3. It retrieves:
+   - All Marlins affiliate games for that date
+   - Game details such as teams, venue, time, and results
+4. It cross-references affiliate team IDs to identify which teams are not playing that day.
+5. The UI displays both:
+   - Scheduled / final games with results
+   - "No Game" cards for teams not playing
