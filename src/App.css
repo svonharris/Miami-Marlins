@@ -17,8 +17,11 @@ h1 {
 }
 h2 {
   font-size: 1.2rem;
-  margin-bottom: .3rem;
+  margin: 0 0 .3rem;
   font-weight: 500;
+}
+p {
+  margin: 0;
 }
 .uppercase {
   text-transform: uppercase;
@@ -104,4 +107,7 @@ h2 {
 .date-picker-container {
   text-align: center;
   margin-bottom: 1rem;
+}
+.teams-not-playing {
+  margin-top: 2rem;
 }
