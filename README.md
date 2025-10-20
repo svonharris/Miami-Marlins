@@ -1,9 +1,5 @@
 # Miami Marlins Interview Project
 
-### Project Image
-
-![Project Image alt text](public/FrontEndEngineerTakeHomeWireframe.png)
-
 ## Project Description
 
 The goal of this project is to simulate a task you'd be asked to complete if you were hired for the Senior Front-End Software Engineer role. The project should not to be exhaustive, but to demonstrate how you approach a problem, specifically answer a high-level technical question, and how you go about formulating a response that you'd be able to review with the development team such that they can execute on it. You are welcome to make any assumptions you feel are necessary, as long as you are willing to explain them as part of the interview.
@@ -45,3 +41,7 @@ The deliverable should be a runnable web app that can provide a single page that
 5. The UI displays both:
    - Scheduled / final games with results
    - "No Game" cards for teams not playing
+
+### Project Image
+
+![Project Image alt text](public/FrontEndEngineerTakeHomeWireframe.png)
