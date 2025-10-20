@@ -23,6 +23,9 @@ h2 {
   font-weight: 700;
   font-size: 1.3rem;
 }
+.text-right {
+  text-align: right;
+}
 .App {
   display: flex;
   flex-direction: column;
@@ -46,4 +49,33 @@ h2 {
   display: flex;
   flex-direction: row;
   column-gap: 10px;
+}
+.game-stats {
+  display: inline-flex;
+  gap: 1rem;
+  margin-bottom: .5rem;
+}
+.inprogress-game,
+.final-game {
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+}
+.teams-playing {
+  grid-column: 1;
+  grid-row: 1;
+  display: inline-flex;
+  justify-content: space-between;
+}
+.game-info.inprogress {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+.player-stats {
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+  grid-column: 1;
+  grid-row: 2;
 }
