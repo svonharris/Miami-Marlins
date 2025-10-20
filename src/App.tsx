@@ -5,7 +5,6 @@ import "./App.css";
 function App() {
   const [gameDetails, setGameDetails] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  // const [selectedDate, setSelectedDate] = useState("2025-04-12"); // default date
   const [selectedDate, setSelectedDate] = useState<string>(
     new Date().toISOString().split("T")[0]
   );
