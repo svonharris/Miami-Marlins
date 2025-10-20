@@ -1,6 +1,6 @@
 # Miami Marlins Interview Project
 
-## Project Image
+### Project Image
 
 ![Project Image alt text](public/FrontEndEngineerTakeHomeWireframe.png)
 
@@ -18,11 +18,10 @@ The deliverable should be a runnable web app that can provide a single page that
 
 ### Functional Requirements
 
-The app should load from a specific URL in the browser. By default, the page should show games for today's date. The page should provide the user the affordance to select a date for which the games should be shown.
-
-### Non-Functional Requirements
-
-The submission should include instructions on how to run the project locally on a development machine, including any prerequisites and dependencies that are necessary.
+- The app should load from a specific URL in the browser.
+- By default, the page should show games for today's date.
+- The page should provide the user the affordance to select a date for which the games should be shown.
+- The submission should include instructions on how to run the project locally on a development machine, including any prerequisites and dependencies that are necessary.
 
 ## Tools used:
 
