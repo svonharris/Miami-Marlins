@@ -42,7 +42,6 @@ function App() {
         console.error("Error fetching data:", err);
       } finally {
         setLoading(false);
-        console.log(selectedDate);
       }
     }
 
