@@ -2,12 +2,32 @@ import { useState, useEffect } from "react";
 import MyDatePicker from "./components/DatePicker";
 import "./App.css";
 
+type Team = {
+  teamId: number;
+  name: string;
+};
+
 function App() {
   const [gameDetails, setGameDetails] = useState<any[]>([]);
+  const [teamsNotPlaying, setTeamsNotPlaying] = useState<Team[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState<string>(
     new Date().toISOString().split("T")[0]
   );
+
+  const allTeams = [
+    { teamId: 146, name: "Miami Marlins" },
+    { teamId: 385, name: "Marlins Prospects" },
+    { teamId: 467, name: "FCL Marlins" },
+    { teamId: 564, name: "Jacksonville Jumbo Shrimp" },
+    { teamId: 554, name: "Beloit Sky Carp" },
+    { teamId: 619, name: "DSL Marlins" },
+    { teamId: 3276, name: "Marlins Alt. Site" },
+    { teamId: 4124, name: "Pensacola Blue Wahoos" },
+    { teamId: 3277, name: "Marlins Organization" },
+    { teamId: 479, name: "Jupiter Hammerheads" },
+    { teamId: 2127, name: "DSL Miami" },
+  ];
 
   // Handler that will be passed to the DatePicker
   const handleDateChange = (date: Date | null) => {
@@ -27,7 +47,20 @@ function App() {
         const data = await res.json();
         const allGames = data.dates[0]?.games || [];
 
-        // Second call(s): Fetch each game’s data
+        // Find the teams who ARE playing
+        const teamsPlaying = allGames.flatMap((game: any) => [
+          game.teams.home.team.id,
+          game.teams.away.team.id,
+        ]);
+
+        // Find the teams NOT playing
+        const nonPlayingTeams = allTeams.filter(
+          (team) => !teamsPlaying.includes(team.teamId)
+        );
+
+        setTeamsNotPlaying(nonPlayingTeams);
+
+        // Second call: Fetch each game’s data
         const gameDetailPromises = allGames.map((game: any) =>
           fetch(
             `https://statsapi.mlb.com/api/v1.1/game/${game.gamePk}/feed/live`
@@ -250,9 +283,21 @@ function App() {
           </div>
         );
       })}
+      {teamsNotPlaying.length > 0 && (
+        <div className="teams-not-playing">
+          {teamsNotPlaying.map((team) => (
+            <div className="game-card" key={team.teamId}>
+              <div className="teams-playing">
+                <h2>
+                  <span className="uppercase">No Game</span> - {team.name}
+                </h2>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
 
 export default App;
-// export default GetRequestCalls;
