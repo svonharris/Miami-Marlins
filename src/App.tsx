@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 import MyDatePicker from "./components/DatePicker";
 import "./App.css";
 
-type Team = {
+type TeamProps = {
   teamId: number;
   name: string;
 };
 
 function App() {
   const [gameDetails, setGameDetails] = useState<any[]>([]);
-  const [teamsNotPlaying, setTeamsNotPlaying] = useState<Team[]>([]);
+  const [teamsNotPlaying, setTeamsNotPlaying] = useState<TeamProps[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState<string>(
     new Date().toISOString().split("T")[0]
@@ -37,7 +37,7 @@ function App() {
     }
   };
 
-  const scheduleUrl = `https://statsapi.mlb.com/api/v1/schedule?teamId=146&teamId=385&teamId=467&teamId=564&teamId=554&teamId=619&teamId=3276&teamId=4124&teamId=3277&teamId=479&teamId=2127&sportId=1&sportId=21&sportId=16&sportId=11&sportId=13&sportId=12&sportId=14&date=${selectedDate}`;
+  const scheduleUrl = `https://statsapi.mlb.com/api/v1/schedule?teamId=146&teamId=385&teamId=467&teamId=564&teamId=554&teamId=619&teamId=3276&teamId=4124&teamId=3277&teamId=479&teamId=2127&teamId=136&sportId=1&sportId=21&sportId=16&sportId=11&sportId=13&sportId=12&sportId=14&date=${selectedDate}`;
 
   useEffect(() => {
     async function fetchGames() {
@@ -232,7 +232,7 @@ function App() {
                 </div>
               </>
             )}
-            {gameData.status.abstractGameState === "In Progress" && (
+            {gameData.status.abstractGameState === "Live" && (
               <>
                 <div className="inprogress-game">
                   <div className="teams-playing">
@@ -252,7 +252,7 @@ function App() {
                   <div className="game-info inprogress">
                     <ul className="game-stats">
                       <li>
-                        {liveData.linescore.inningState}{" "}
+                        {liveData.linescore.inningHalf}{" "}
                         {liveData.linescore.currentInning}
                       </li>
                       <li>{liveData.linescore.outs} outs</li>
@@ -269,13 +269,21 @@ function App() {
                     {liveData.plays.currentPlay?.matchup.batter.fullName && (
                       <li>
                         At Bat:{" "}
-                        {liveData.plays.currentPlay?.matchup.batter.fullName}
+                        {liveData.plays.currentPlay.matchup.batter.fullName}
                       </li>
                     )}
-                    {liveData.boxscore.pitchers && (
-                      <li>Pitching: {liveData.boxscore.pitchers}</li>
+                    {liveData.plays.currentPlay?.matchup.pitcher.fullName && (
+                      <li>
+                        Pitching:{" "}
+                        {liveData.plays.currentPlay.matchup.pitcher.fullName}
+                      </li>
                     )}
-                    {liveData.linescore.offense && <li>Runners: [array]</li>}
+                    {Array.isArray(liveData.plays.currentPlay?.runners) &&
+                      liveData.plays.currentPlay.runners.map((runner: any) => (
+                        <li key={runner.details.runner.id}>
+                          Runner: {runner.details.runner.fullName}
+                        </li>
+                      ))}
                   </ul>
                 </div>
               </>
