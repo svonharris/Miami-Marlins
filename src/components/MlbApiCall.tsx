@@ -1,4 +1,7 @@
+import { useState } from "react";
+
 const GetRequestCalls = () => {
+  const [games, setGames] = useState<any[]>([]);
   // function GetRequestCalls() {}
 
   const url =
@@ -14,13 +17,68 @@ const GetRequestCalls = () => {
     .then((res) => res.json())
     .then((data) => {
       // const allGames = data.dates[0]?.games || [];
-      // setGames(allGames);
       // games?.map((gamePk: number) => gamePk);
+      // setGames(data);
       console.log(data);
     })
     .catch((err) => console.error(err));
 
-  return <></>;
+  return (
+    <>
+      {/* {games.map((d) => {
+        const gameData = d.gameData;
+        const liveData = d.liveData;
+        return (
+          <>
+            <div className="inprogress-game">
+              <div className="teams-playing">
+                <h2>
+                  {gameData.teams.home.name}{" "}
+                  <span className="bold">
+                    {liveData.linescore.teams.home.runs}
+                  </span>
+                </h2>
+                <h2>
+                  vs {gameData.teams.away.name}{" "}
+                  <span className="bold">
+                    {liveData.linescore.teams.away.runs}
+                  </span>
+                </h2>
+              </div>
+              <div className="game-info inprogress">
+                <ul className="game-stats">
+                  <li>
+                    {liveData.linescore.inningState}{" "}
+                    {liveData.linescore.currentInning}
+                  </li>
+                  <li>{liveData.linescore.outs} outs</li>
+                </ul>
+                <p>
+                  {gameData.venue.name},{" "}
+                  {gameData.venue.location.country === "USA"
+                    ? `${gameData.venue.location.city}, `
+                    : null}
+                  {gameData.venue.location.stateAbbrev}
+                </p>
+              </div>
+              <ul className="player-stats">
+                {liveData.plays.currentPlay?.matchup.batter.fullName && (
+                  <li>
+                    At Bat:{" "}
+                    {liveData.plays.currentPlay?.matchup.batter.fullName}
+                  </li>
+                )}
+                {liveData.boxscore.pitchers && (
+                  <li>Pitching: {liveData.boxscore.pitchers}</li>
+                )}
+                {liveData.linescore.offense && <li>Runners: [array]</li>}
+              </ul>
+            </div>
+          </>
+        );
+      })} */}
+    </>
+  );
 };
 
 export default GetRequestCalls;
