@@ -241,15 +241,15 @@ function App() {
                 <div className="inprogress-game">
                   <div className="teams-playing">
                     <h2>
-                      {gameData.teams.home.name}{" "}
+                      {gameData.teams.away.name}{" "}
                       <span className="bold">
-                        {liveData.linescore.teams.home.runs}
+                        {liveData.linescore.teams.away.runs}
                       </span>
                     </h2>
                     <h2>
-                      vs {gameData.teams.away.name}{" "}
+                      @ {gameData.teams.home.name}{" "}
                       <span className="bold">
-                        {liveData.linescore.teams.away.runs}
+                        {liveData.linescore.teams.home.runs}
                       </span>
                     </h2>
                   </div>
@@ -282,12 +282,17 @@ function App() {
                         {liveData.plays.currentPlay.matchup.pitcher.fullName}
                       </li>
                     )}
-                    {Array.isArray(liveData.plays.currentPlay?.runners) &&
-                      liveData.plays.currentPlay.runners.map((runner: any) => (
-                        <li key={runner.details.runner.id}>
-                          Runner: {runner.details.runner.fullName}
-                        </li>
-                      ))}
+                    <li>
+                      Runner(s):{" "}
+                      {Array.isArray(liveData.plays.currentPlay?.runners) &&
+                        liveData.plays.currentPlay.runners.map(
+                          (runner: any) => (
+                            <span key={runner.details.runner.id}>
+                              {runner.details.runner.fullName},{" "}
+                            </span>
+                          )
+                        )}
+                    </li>
                   </ul>
                 </div>
                 {/* <LiveCard gameData={gameData} liveData={liveData} /> */}
