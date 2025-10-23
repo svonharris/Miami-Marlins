@@ -1,0 +1,69 @@
+{
+  "dates": [
+    {
+      "date": "2025-08-11",
+      "games": [
+        {
+          "gamePk": 900001,
+          "teams": {
+            "home": {
+              "team": {
+                "id": 146,
+                "name": "Miami Marlins"
+              }
+            },
+            "away": {
+              "team": {
+                "id": 564,
+                "name": "Jacksonville Jumbo Shrimp"
+              }
+            }
+          },
+          "venue": {
+            "id": 1,
+            "name": "loanDepot Park",
+            "location": {
+              "city": "Miami",
+              "stateAbbrev": "FL",
+              "country": "USA"
+            }
+          },
+          "gameDate": "2025-08-11T19:10:00Z",
+          "status": {
+            "abstractGameState": "Live"
+          }
+        },
+        {
+          "gamePk": 900002,
+          "teams": {
+            "home": {
+              "team": {
+                "id": 479,
+                "name": "Jupiter Hammerheads"
+              }
+            },
+            "away": {
+              "team": {
+                "id": 385,
+                "name": "Marlins Prospects"
+              }
+            }
+          },
+          "venue": {
+            "id": 2,
+            "name": "Roger Dean Chevrolet Stadium",
+            "location": {
+              "city": "Jupiter",
+              "stateAbbrev": "FL",
+              "country": "USA"
+            }
+          },
+          "gameDate": "2025-08-11T23:00:00Z",
+          "status": {
+            "abstractGameState": "Live"
+          }
+        }
+      ]
+    }
+  ]
+}
