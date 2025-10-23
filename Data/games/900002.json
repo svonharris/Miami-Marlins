@@ -1,0 +1,52 @@
+{
+  "gameData": {
+    "game": {
+      "pk": 900002
+    },
+    "teams": {
+      "home": { "id": 479, "name": "Jupiter Hammerheads" },
+      "away": { "id": 385, "name": "Marlins Prospects" }
+    },
+    "venue": {
+      "name": "Roger Dean Chevrolet Stadium",
+      "location": {
+        "city": "Jupiter",
+        "stateAbbrev": "FL",
+        "country": "USA"
+      }
+    },
+    "datetime": { "dateTime": "2025-08-11T23:00:00Z" },
+    "status": { "abstractGameState": "Live" }
+  },
+  "liveData": {
+    "linescore": {
+      "currentInning": 4,
+      "inningHalf": "Bottom",
+      "outs": 2,
+      "teams": {
+        "home": { "runs": 4 },
+        "away": { "runs": 6 }
+      }
+    },
+    "plays": {
+      "currentPlay": {
+        "matchup": {
+          "batter": { "fullName": "Agustín Ramírez" },
+          "pitcher": { "fullName": "Calvin Faucher" }
+        },
+        "runners": [
+          {
+            "details": {
+              "runner": { "fullName": "Xavier Edwards" }
+            }
+          },
+          {
+            "details": {
+              "runner": { "fullName": "Troy Johnston" }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
