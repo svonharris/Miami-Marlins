@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import MyDatePicker from "./components/DatePicker";
 import "./App.css";
+// import LiveCard from "./components/LiveCard";
 
 type TeamProps = {
   teamId: number;
@@ -8,12 +9,12 @@ type TeamProps = {
 };
 
 function App() {
+  const today = new Date().toISOString().split("T")[0];
+
   const [gameDetails, setGameDetails] = useState<any[]>([]);
   const [teamsNotPlaying, setTeamsNotPlaying] = useState<TeamProps[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedDate, setSelectedDate] = useState<string>(
-    new Date().toISOString().split("T")[0]
-  );
+  const [selectedDate, setSelectedDate] = useState<string>(today);
 
   const allTeams = [
     { teamId: 146, name: "Miami Marlins" },
@@ -37,7 +38,9 @@ function App() {
     }
   };
 
-  const scheduleUrl = `https://statsapi.mlb.com/api/v1/schedule?teamId=146&teamId=385&teamId=467&teamId=564&teamId=554&teamId=619&teamId=3276&teamId=4124&teamId=3277&teamId=479&teamId=2127&teamId=136&sportId=1&sportId=21&sportId=16&sportId=11&sportId=13&sportId=12&sportId=14&date=${selectedDate}`;
+  const scheduleUrl =
+    // `https://statsapi.mlb.com/api/v1/schedule?teamId=146&teamId=385&teamId=467&teamId=564&teamId=554&teamId=619&teamId=3276&teamId=4124&teamId=3277&teamId=479&teamId=2127&teamId=136&sportId=1&sportId=21&sportId=16&sportId=11&sportId=13&sportId=12&sportId=14&date=${selectedDate}`;
+    "/Data/live-game.json"; // for testing without rate limits
 
   useEffect(() => {
     async function fetchGames() {
@@ -63,7 +66,8 @@ function App() {
         // Second call: Fetch each game’s data
         const gameDetailPromises = allGames.map((game: any) =>
           fetch(
-            `https://statsapi.mlb.com/api/v1.1/game/${game.gamePk}/feed/live`
+            // `https://statsapi.mlb.com/api/v1.1/game/${game.gamePk}/feed/live`
+            `/Data/games/${game.gamePk}.json` // for testing without rate limits
           ).then((res) => res.json())
         );
 
@@ -286,6 +290,7 @@ function App() {
                       ))}
                   </ul>
                 </div>
+                {/* <LiveCard gameData={gameData} liveData={liveData} /> */}
               </>
             )}
           </div>
