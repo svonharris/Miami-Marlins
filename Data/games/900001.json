@@ -1,0 +1,52 @@
+{
+  "gameData": {
+    "game": {
+      "pk": 900001
+    },
+    "teams": {
+      "home": { "id": 146, "name": "Miami Marlins" },
+      "away": { "id": 564, "name": "Jacksonville Jumbo Shrimp" }
+    },
+    "venue": {
+      "name": "loanDepot Park",
+      "location": {
+        "city": "Miami",
+        "stateAbbrev": "FL",
+        "country": "USA"
+      }
+    },
+    "datetime": { "dateTime": "2025-08-11T19:10:00Z" },
+    "status": { "abstractGameState": "Live" }
+  },
+  "liveData": {
+    "linescore": {
+      "currentInning": 6,
+      "inningHalf": "Top",
+      "outs": 1,
+      "teams": {
+        "home": { "runs": 2 },
+        "away": { "runs": 3 }
+      }
+    },
+    "plays": {
+      "currentPlay": {
+        "matchup": {
+          "batter": { "fullName": "Maximo Acosta" },
+          "pitcher": { "fullName": "Sandy Alcantara" }
+        },
+        "runners": [
+          {
+            "details": {
+              "runner": { "fullName": "Griffin Conine" }
+            }
+          },
+          {
+            "details": {
+              "runner": { "fullName": "Heriberto Hernández" }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
