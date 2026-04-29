@@ -37,8 +37,9 @@ function useMlbStats(scheduleUrl: string) {
         ]);
 
         const realGames = (realData.dates[0]?.games || []).map((g: any) => ({ ...g, _mock: false }));
-        const mockGames = (mockData.dates[0]?.games || []).map((g: any) => ({ ...g, _mock: true }));
-        const allGames = [...mockGames, ...realGames];
+        // const mockGames = (mockData.dates[0]?.games || []).map((g: any) => ({ ...g, _mock: true }));
+        // const allGames = [...mockGames, ...realGames];
+        const allGames = [...realGames];
 
         const allTeamIds = new Set(allTeams.map((t) => t.teamId));
         const marlinsGames = allGames.filter((game: any) =>
