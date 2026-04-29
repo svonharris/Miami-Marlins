@@ -49,7 +49,7 @@ ul {
 .game-card {
   border: 1px solid #a6a6a6;
   padding: 5px 15px 3px;
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto .5rem;
   box-sizing: border-box;
   background-color: #faf8f8;
@@ -122,7 +122,7 @@ ul {
 
 /* ── Summary bar ── */
 .summary-bar {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto .75rem;
   display: flex;
   gap: 1.5rem;
