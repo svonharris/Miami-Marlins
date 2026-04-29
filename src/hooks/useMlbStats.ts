@@ -27,9 +27,18 @@ function useMlbStats(scheduleUrl: string) {
   useEffect(() => {
     async function fetchGames() {
       try {
-        const res = await fetch(scheduleUrl);
-        const data = await res.json();
-        const allGames = data.dates[0]?.games || [];
+        const [realRes, mockRes] = await Promise.all([
+          fetch(scheduleUrl),
+          fetch("/Data/live-game.json"),
+        ]);
+        const [realData, mockData] = await Promise.all([
+          realRes.json(),
+          mockRes.json(),
+        ]);
+
+        const realGames = (realData.dates[0]?.games || []).map((g: any) => ({ ...g, _mock: false }));
+        const mockGames = (mockData.dates[0]?.games || []).map((g: any) => ({ ...g, _mock: true }));
+        const allGames = [...mockGames, ...realGames];
 
         const allTeamIds = new Set(allTeams.map((t) => t.teamId));
         const marlinsGames = allGames.filter((game: any) =>
@@ -48,8 +57,9 @@ function useMlbStats(scheduleUrl: string) {
 
         const gameDetailPromises = marlinsGames.map((game: any) =>
           fetch(
-            `https://statsapi.mlb.com/api/v1.1/game/${game.gamePk}/feed/live`
-            // `/Data/games/${game.gamePk}.json`, // for testing without rate limits
+            game._mock
+              ? `/Data/games/${game.gamePk}.json`
+              : `https://statsapi.mlb.com/api/v1.1/game/${game.gamePk}/feed/live`,
           ).then((res) => res.json()),
         );
 
