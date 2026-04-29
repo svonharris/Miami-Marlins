@@ -1,4 +1,4 @@
-# Miami Marlins Interview Project
+# Miami Marlins Project
 
 ## Project Description
 
