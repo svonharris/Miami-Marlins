@@ -4,14 +4,12 @@ import UpcomingGame from "./components/UpcomingCard";
 import LiveGame from "./components/LiveCard";
 import FinalGame from "./components/FinalCard";
 import useMlbStats from "./hooks/useMlbStats";
-import "./App.css";
 
 function App() {
   const today = new Date().toISOString().split("T")[0];
   const [selectedDate, setSelectedDate] = useState<string>(today);
 
   const scheduleUrl = `https://statsapi.mlb.com/api/v1/schedule?teamId=146&teamId=385&teamId=467&teamId=564&teamId=554&teamId=619&teamId=3276&teamId=4124&teamId=3277&teamId=479&teamId=2127&teamId=136&sportId=1&sportId=21&sportId=16&sportId=11&sportId=13&sportId=12&sportId=14&date=${selectedDate}`;
-  // "/Data/live-game.json"; // for testing without rate limits
 
   const { gameDetails, teamsNotPlaying, loading } = useMlbStats(scheduleUrl);
 
@@ -21,7 +19,7 @@ function App() {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p className="loading-text">Loading...</p>;
 
   const liveCount = gameDetails.filter(
     (d) => d.gameData.status.abstractGameState === "Live",
@@ -53,15 +51,21 @@ function App() {
         const liveData = d.liveData;
 
         return (
-          <div key={gameData.game.pk} className="game-card">
+          <div key={gameData.game.pk}>
             {gameData.status.abstractGameState === "Preview" && (
-              <UpcomingGame gameData={gameData} />
+              <div key={gameData.game.pk} className="game-card">
+                <UpcomingGame gameData={gameData} />
+              </div>
             )}
             {gameData.status.abstractGameState === "Final" && (
-              <FinalGame gameData={gameData} liveData={liveData} />
+              <div key={gameData.game.pk} className="game-card">
+                <FinalGame gameData={gameData} liveData={liveData} />
+              </div>
             )}
             {gameData.status.abstractGameState === "Live" && (
-              <LiveGame gameData={gameData} liveData={liveData} />
+              <div key={gameData.game.pk} className="game-card">
+                <LiveGame gameData={gameData} liveData={liveData} />
+              </div>
             )}
           </div>
         );
