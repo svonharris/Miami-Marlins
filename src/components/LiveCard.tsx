@@ -50,8 +50,8 @@ function LiveGame({ gameData, liveData }: LiveGameProps) {
           <li>
             Runner(s):{" "}
             {Array.isArray(liveData.plays.currentPlay?.runners) &&
-              liveData.plays.currentPlay.runners.map((runner: any) => (
-                <span key={runner.details.runner.id}>
+              liveData.plays.currentPlay.runners.map((runner: any, index: number) => (
+                <span key={runner.details?.runner?.id ?? index}>
                   {runner.details.runner.fullName},{" "}
                 </span>
               ))}
